@@ -5,14 +5,16 @@ const search = useSearchStore()
 
 
 function addTag(tag: string) {
-  if (!search.queryTags.includes(tag))
+  if (!search.queryTags.includes(tag)){
     search.queryTags.push(tag)
+  }
   else search.queryTags = search.queryTags.filter(t => t !== tag)
 }
 
 function addIngredients(ingredients: string) {
-  if (!search.queryIngredients.includes(ingredients))
+  if (!search.queryIngredients.includes(ingredients)){
     search.queryIngredients.push(ingredients)
+  }
   else search.queryIngredients = search.queryIngredients.filter(i => i !== ingredients)
 }
 
@@ -26,7 +28,7 @@ const { data:tags} = useAsyncData(
  'tags',
  () => find<{ data: ITag[] }>('tags')
 )
-const { data:ingrédients} = useAsyncData(
+const { data:ingredients} = useAsyncData(
  'ingredients',
  () => find<{ data: IIngredient[] }>('ingredients')
 )
@@ -34,7 +36,7 @@ const { data:ingrédients} = useAsyncData(
 
 <template>
   <div class="container">
-    
+
       <h1 class="w-fit p-12 mx-auto">Les recettes de Bibi</h1>
       <h2>Filtres de recherche :</h2>
           <div class="form-group flex flex-col gap-2" role="search">
@@ -63,20 +65,20 @@ const { data:ingrédients} = useAsyncData(
             <p>Filtrer par ingrédients :</p>
             <div class="flex flex-wrap items-start gap-2" role="group">
               <button
-                v-for="ingrédient in ingrédients?.data" :key="ingrédient.id"
-                :class="{ 'bg-gray-900 text-white': search.queryTags.includes(ingrédient.slug) }"
-                :title="ingrédient.name"
+                v-for="ingredient in ingredients?.data" :key="ingredient.id"
+                :class="{ 'bg-gray-900 text-white': search.queryIngredients.includes(ingredient.slug) }"
+                :title="ingredient.name"
                 class="py-1 px-2 bg-gray-200 text-gray-900 border-none cursor-pointer"
-                @click="addIngredients(ingrédient.slug)"
+                @click="addIngredients(ingredient.slug)"
               >
-                {{ ingrédient.name }}
+                {{ ingredient.name }}
               </button>
             </div>
             <button
               class="mt-4 appearance-none border-none bg-transparent p-0 underline cursor-pointer"
               @click="search.resetTags"
             >
-              Réinitialiser les tags sélectionnés
+              Réinitialiser les ingrédients sélectionnés
             </button>
       </div>
       <p v-if=pending>Loading...</p>
@@ -85,7 +87,7 @@ const { data:ingrédients} = useAsyncData(
       <div v-if="recipes">
         <ul class="pl-0 mx-auto flex justify-around	gap-16 flex-wrap	">
           
-          <li class="list-none" v-for="recipe in search.sortedByTags" :key="recipe.id">
+          <li class="list-none" v-for="recipe in search.sortedResults" :key="recipe.id">
             <div class="shadow-lg ease-in duration-150 hover:shadow-2xl rounded p-4 gap-4 flex-col flex">
               <NuxtImg class="w-80 h-60" :src="recipe.image.url"/>
               <h2 class="text-2xl	my-0">{{ recipe.title }}</h2>

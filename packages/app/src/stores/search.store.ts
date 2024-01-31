@@ -27,7 +27,7 @@
 
 
 import Fuse from 'fuse.js'
-import type { IRecipe, ITag, RecipesData } from '~/models/search.model'
+import type { IIngredient, IRecipe, ITag, RecipesData } from '~/models/search.model'
 
 export const useSearchStore = defineStore('search', () => {
   const { find } = useStrapi4()
@@ -60,11 +60,25 @@ export const useSearchStore = defineStore('search', () => {
     if (!queryTags.value.length)
       return results.value
     return results.value.filter((recipes) => {
-      return recipes.tags.some((tag: ITag) => queryTags.value.includes(tag.slug))
+      return queryTags.value.every((tagSlug) => 
+      recipes.tags.some((tag: ITag) => tag.slug === tagSlug))
     })
   })
+  const sortedByIngredients = computed(() => {
+    if (!queryIngredients.value.length)
+      return results.value
+    return results.value.filter((recipes) => {
+      return queryIngredients.value.every((ingredientSlug) => 
+      recipes.ingredients.some((ingredient: IIngredient) => ingredient.slug === ingredientSlug))
+    })
+  })
+  const sortedResults = computed(() => {
+    return sortedByTags.value.filter(recipe => sortedByIngredients.value.includes(recipe));
+   });
+
+
 
   const resetTags = () => queryTags.value = []
 
-  return { query, results, elements, pending, sortedByTags, queryTags, resetTags }
+  return { query, results, elements, pending, sortedResults,sortedByTags,sortedByIngredients, queryTags, queryIngredients, resetTags }
 })

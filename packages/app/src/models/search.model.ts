@@ -14,6 +14,7 @@ export interface IIngredient {
   id: number
   name: string
   quantity: number
+  slug: string
 }
 
 export interface IStep {
