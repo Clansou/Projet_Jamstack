@@ -832,6 +832,7 @@ export interface ApiRecipeRecipe extends Schema.CollectionType {
       'manyToMany',
       'api::tag.tag'
     >;
+    Steps: Attribute.Component<'step.steps', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

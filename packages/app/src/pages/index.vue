@@ -97,7 +97,7 @@ const { data:ingredients} = useAsyncData(
                   <li class="bg-sky-200		list-none rounded px-2 py-1" v-for="tags in recipe.tags">{{ tags.name }}</li>
                 </ul>
               </div>
-              <NuxtLink class="text-lg bg-sky-300 ease-in duration-150 hover:bg-sky-400 hover:shadow-lg no-underline color-black rounded-lg	 my-4 px-5 py-2 ml-auto" :to="`/recettes/${recipe.slug}`">Voir la recette</NuxtLink>
+              <NuxtLink class="text-lg bg-sky-300 ease-in duration-150 hover:bg-sky-400 hover:shadow-lg no-underline color-black rounded-lg	 my-4 px-5 py-2 ml-auto" :to="`/recipes/${recipe.id}`">Voir la recette</NuxtLink>
             </div>
           </li>
         </ul>
