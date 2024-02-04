@@ -1,7 +1,3 @@
-# Headless 2024
-
-Headless 2024 course starter for IIM Digital School.
-
 Project including a pnpm workspace managing both Strapi and Nuxt 3 applications.
 
 ⚠️ This repository is used for practical course only and is not meant to be updated a lot.
