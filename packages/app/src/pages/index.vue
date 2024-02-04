@@ -37,7 +37,7 @@ const { data:ingredients} = useAsyncData(
 <template>
   <div class="container">
 
-      <h1 class="w-fit p-12 mx-auto">Les recettes de Bibi</h1>
+      <h1 class="w-fit p-12 mx-auto">Les recettes de chez vous</h1>
       <h2>Filtres de recherche :</h2>
           <div class="form-group flex flex-col gap-2" role="search">
             <label for="search">Chercher une recette :</label>
